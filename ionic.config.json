@@ -1,0 +1,7 @@
+{
+  "name": "WolfyNews",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
