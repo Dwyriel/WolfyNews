@@ -1,0 +1,14 @@
+<ion-header *ngIf="segment==0" [translucent]="true"> 
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>{{ title }}</ion-title><!--this will only show for Android, cuz the way iOS works-->
+  </ion-toolbar>
+</ion-header>
+
+<ion-header *ngIf="segment==1" collapse="condense"> <!--this is only for IOS-->
+  <ion-toolbar>
+    <ion-title size="large">{{ title }}</ion-title>
+  </ion-toolbar>
+</ion-header>
