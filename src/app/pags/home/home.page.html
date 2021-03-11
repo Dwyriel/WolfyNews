@@ -1,9 +1,10 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Home</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header [title]="title" segment=0></app-header>
 
-<ion-content>
+<ion-content [fullscreen]="true">
+  <app-header [title]="title" segment=1></app-header>
 
+  <div id="container">
+    <strong class="capitalize">This is the {{ title }} page</strong>
+    <p>Welcome to the {{title}} page, content will come later</p>
+  </div>
 </ion-content>
