@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "wolfynews-21045": {
+      "hosting": {
+        "app": [
+          "wolfynews-21045"
+        ]
+      }
+    }
+  }
+}

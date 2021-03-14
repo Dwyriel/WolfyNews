@@ -1,0 +1,41 @@
+<app-header title="Account" segment=0></app-header>
+
+<ion-content [fullscreen]="true">
+  <app-header title="Account" segment=1></app-header>
+
+  <form (ngSubmit)="OnFormSubmit(form)" #form="ngForm">
+    <ion-item>
+      <ion-label position="floating">Name</ion-label>
+      <ion-input type="text" name="user-name" [(ngModel)]=user.name required pattern="[a-zA-Z ]*"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Email <ion-text color="danger" *ngIf="em.dirty && !emailValidation.validateEmail(em.value)">
+          <b>Email invalid</b> </ion-text>
+      </ion-label>
+      <ion-input type="email" name="user-email" [(ngModel)]=user.email #em="ngModel" required></ion-input>
+    </ion-item>
+    <div *ngIf="!logged">
+      <ion-item>
+        <ion-label position="floating">Password <ion-text color="danger" *ngIf="ps.invalid && ps.dirty"><b>Password
+              invalid</b> </ion-text>
+        </ion-label>
+        <ion-input type="password" name="user-ps" [(ngModel)]=user.password #ps="ngModel" minlength="{{minlength}}"
+          required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Confirm Password <ion-text color="danger"
+            *ngIf="cf.value != ps.value && cf.dirty"><b>Passwords don't match!</b> </ion-text>
+        </ion-label>
+        <ion-input type="password" name="confirm" [(ngModel)]=confirm #cf="ngModel" minlength="{{minlength}}" required>
+        </ion-input>
+      </ion-item>
+      <ion-button class="ion-margin" expand="block" size="large"
+        [disabled]="form.invalid || (cf.value != ps.value) || !emailValidation.validateEmail(em.value)" type="submit">Send <!--|| !validator.isValEmail(em.value))-->
+      </ion-button>
+    </div>
+    <div *ngIf="logged">
+      <ion-button class="ion-margin" expand="block" size="large" [disabled]="form.invalid" type="submit">Update</ion-button>
+    </div>
+    <ion-button class="ion-margin" expand="block" size="large" type="reset" routerLink="/login">Cancel</ion-button>
+  </form>
+</ion-content>

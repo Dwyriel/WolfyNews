@@ -117,3 +117,13 @@ ion-note {
 ion-item.selected {
   --color: var(--ion-color-primary);
 }
+
+#userimage {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+}
+
+#logout {
+  margin-left: -17%;
+}

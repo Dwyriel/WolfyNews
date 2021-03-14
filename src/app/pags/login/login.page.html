@@ -1,0 +1,23 @@
+<app-header title="Login" segment=0></app-header>
+
+<ion-content [fullscreen]="true">
+  <app-header title="Login" segment=1></app-header>
+
+  <form (ngSubmit)="OnFormSubmit(form)" #form="ngForm">
+    <ion-item>
+      <ion-label position="floating">Email <ion-text color="danger" *ngIf="!emailValidation.validateEmail(em.value) && em.dirty">
+          <b>Email invalid</b> </ion-text>
+      </ion-label>
+      <ion-input type="email" name="user-email" [(ngModel)]=email #em="ngModel" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Password </ion-label>
+      <ion-input type="password" name="user-ps" [(ngModel)]=password required></ion-input>
+    </ion-item>
+
+    <ion-button expand="block" size="large" [disabled]="form.invalid || !emailValidation.validateEmail(em.value)" class="ion-margin" type="submit">
+      Send </ion-button>
+    <ion-button expand="block" size="large" type="reset" class="ion-margin" routerLink="/">Cancel</ion-button>
+    <ion-button expand="block" size="large" type="reset" class="ion-margin" routerLink="/account">New Account</ion-button>
+  </form>
+</ion-content>

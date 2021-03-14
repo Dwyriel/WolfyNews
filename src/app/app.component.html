@@ -5,15 +5,45 @@
       <ion-content>
 
         <ion-list id="inbox-list">
-          <ion-list-header>Inbox</ion-list-header>
-          <ion-note>hi@ionicframework.com</ion-note>
-          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
-            <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
-              <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
-              <ion-label>{{ p.title }}</ion-label>
+          <ion-menu-toggle>
+            <ion-item *ngIf="firebaseAns" routerLink="/profile">
+              <img id="userimage" *ngIf="user && !user.photo" src="../assets/perfil.png">
+              <img id="userimage" *ngIf="user && user.photo" [src]="user.photo">
+              <ion-list-header *ngIf="user">{{ user.name }}</ion-list-header>
             </ion-item>
           </ion-menu-toggle>
+          <ion-menu-toggle>
+            <ion-item *ngIf="!firebaseAns" routerLink="/login">
+              <ion-icon ios="log-in-outline" md="log-in-sharp"></ion-icon>
+              <ion-list-header>Log In</ion-list-header>
+            </ion-item>
+          </ion-menu-toggle>
+
+          <ion-menu-toggle auto-hide="false" *ngFor="let page of appPages; let i = index">
+            <ion-item routerDirection="root" [routerLink]="[page.url]" lines="none" detail="false"
+              routerLinkActive="selected">
+              <ion-icon slot="start" [ios]="page.icon + '-outline'" [md]="page.icon + '-sharp'"></ion-icon>
+              <ion-label>{{ page.title }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+          <div *ngIf="firebaseAns && user.userType == 0">
+            <ion-menu-toggle auto-hide="false" *ngFor="let page of adminAppPages; let i = index">
+              <ion-item routerDirection="root" [routerLink]="[page.url]" lines="none" detail="false"
+                routerLinkActive="selected">
+                <ion-icon slot="start" [ios]="page.icon + '-outline'" [md]="page.icon + '-sharp'"></ion-icon>
+                <ion-label>{{ page.title }}</ion-label>
+              </ion-item>
+            </ion-menu-toggle>
+          </div>
         </ion-list>
+
+        <ion-fab *ngIf="firebaseAns" vertical="bottom" horizontal="center" id="logout">
+          <ion-item (click)="logout()">
+            <ion-icon ios="log-in-outline" md="log-in-sharp"></ion-icon>
+            <ion-label>Logout</ion-label>
+          </ion-item>
+        </ion-fab>
+
       </ion-content>
     </ion-menu>
 
