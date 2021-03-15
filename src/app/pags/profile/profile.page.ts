@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/classes/user';
 import { AlertService } from 'src/app/services/alert.service';
+import { ImageService } from 'src/app/services/image.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -15,7 +16,7 @@ export class ProfilePage implements OnInit {
   public id: string = null;
   private alertLoading: string;
 
-  constructor(private activatedRoute: ActivatedRoute, private userService: UserService, private router: Router, private alertService: AlertService) { }
+  constructor(private activatedRoute: ActivatedRoute, private userService: UserService, private router: Router, private alertService: AlertService, private imageService: ImageService) { }
 
   ngOnInit() {
   }
@@ -63,7 +64,6 @@ export class ProfilePage implements OnInit {
     if (!this.id)
       this.getUserProfile(id);
     this.user.id = id;
-    console.log(id == this.id)
   }
 
   async redirectToLogin() {
@@ -71,4 +71,20 @@ export class ProfilePage implements OnInit {
   }
 
   //todo add alterPhoto() function and check if user is logged in and the profile shown is the same as the user's profile, otherwise if u log out while being in this page it would go through with the alteration (try using unsubscribe)
+  async alterPhoto() {
+    await this.imageService.alterPhoto().then(async (returnedPhoto) => {//todo add verification for to check if result is png, jpeg, gif or other img files
+      await this.alertService.presentLoading().then(ans => this.alertLoading = ans);
+      if (returnedPhoto) {
+        this.user.photo = returnedPhoto;
+        await this.userService.updatePhoto(this.user.id, returnedPhoto).then(() => { }, async err => {
+          console.log(err);
+          await this.alertService.presentAlert("Ops!", "It seems your image is too big");
+        });
+        await this.alertService.dismissLoading(this.alertLoading);
+      } else {
+        this.alertService.presentAlert("Error", "Image couldn't be processed");
+        await this.alertService.dismissLoading(this.alertLoading);
+      }
+    });
+  }
 }
