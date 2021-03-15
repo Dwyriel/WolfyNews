@@ -20,6 +20,14 @@ const routes: Routes = [
     loadChildren: () => import('./pags/login/login.module').then( m => m.LoginPageModule)
   },
   {
+    path: 'profile',
+    loadChildren: () => import('./pags/profile/profile.module').then( m => m.ProfilePageModule)
+  },
+  {
+    path: 'profile/:id',
+    loadChildren: () => import('./pags/profile/profile.module').then( m => m.ProfilePageModule)
+  },
+  {
     path: 'admin_users',
     loadChildren: () => import('./pags/admin-users/admin-users.module').then( m => m.AdminUsersPageModule)
   },

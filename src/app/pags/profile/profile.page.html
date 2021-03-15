@@ -1,0 +1,25 @@
+<app-header [title]="title" segment=0></app-header>
+
+<ion-content [fullscreen]="true">
+  <app-header [title]="title" segment=1></app-header>
+  <ion-list>
+    <ion-item>
+      <img [src]="user.photo" *ngIf="user.photo && id && user.id != id">
+      <img [src]="user.photo" (click)="alterPhoto()" *ngIf="user.photo && (user.id == id || !id)">
+      <img src="../../../assets/perfil.png" *ngIf="!user.photo && id && user.id != id">
+      <img src="../../../assets/perfil.png" (click)="alterPhoto()" *ngIf="!user.photo && (user.id == id || !id)">
+    </ion-item>
+    <ion-item> 
+      <ion-label>Name</ion-label>
+      <ion-text>{{user.name}}</ion-text>
+    </ion-item>
+    <ion-item>
+      <ion-label>E-mail</ion-label>
+      <ion-text>{{user.email}}</ion-text>
+    </ion-item>
+    <ion-item>
+      <ion-label>Role</ion-label>
+      <ion-text>{{(user.userType==0)?"Admin":(user.userType==1)?"Editor":"User"}}</ion-text>
+    </ion-item>
+  </ion-list>
+</ion-content>

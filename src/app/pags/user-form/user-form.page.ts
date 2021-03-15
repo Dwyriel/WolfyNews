@@ -15,8 +15,10 @@ import { UserService } from 'src/app/services/user.service';
 export class UserFormPage implements OnInit {
   public logged: boolean = false;
   public user: User = new User;
+  public title: string = "Account";
   public minlength: number = 6;
   private loadingAlert: string;
+
   public confirm = "";//form would not work properly without the ngModel pointing to some var
 
   constructor(private userService: UserService, public emailValidation: EmailValidationService, private alertService: AlertService, private router: Router) { }
@@ -35,16 +37,20 @@ export class UserFormPage implements OnInit {
   }
 
   async checkIfLogged() {
-    await this.userService.auth.user.subscribe(ans => {//will always return an ans, even if not logged in, but ans will be null
+    await this.alertService.presentLoading().then(ans => { this.loadingAlert = ans; });
+    await this.userService.auth.user.subscribe(async ans => {//will always return an ans, even if not logged in, but ans will be null
       if (!ans) {
         this.logged = false;
         this.user = new User();
         this.confirm = null;
         this.user.userType = UserType.User;
+        this.title = "New Account";
+        await this.alertService.dismissLoading(this.loadingAlert)
         return;
       }
       this.userService.get(ans.uid).subscribe(data => { this.user = data; this.user.id = ans.uid;});
       this.logged = true;
+      await this.alertService.dismissLoading(this.loadingAlert)
     });
   }
 

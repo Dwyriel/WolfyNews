@@ -26,7 +26,7 @@
               <ion-label>{{ page.title }}</ion-label>
             </ion-item>
           </ion-menu-toggle>
-          <div *ngIf="firebaseAns && user.userType == 0">
+          <div *ngIf="firebaseAns && user && user.userType == 0">
             <ion-menu-toggle auto-hide="false" *ngFor="let page of adminAppPages; let i = index">
               <ion-item routerDirection="root" [routerLink]="[page.url]" lines="none" detail="false"
                 routerLinkActive="selected">

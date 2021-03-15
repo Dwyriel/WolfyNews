@@ -1,7 +1,7 @@
-<app-header title="Account" segment=0></app-header>
+<app-header [title]="title" segment=0></app-header>
 
 <ion-content [fullscreen]="true">
-  <app-header title="Account" segment=1></app-header>
+  <app-header [title]="title" segment=1></app-header>
 
   <form (ngSubmit)="OnFormSubmit(form)" #form="ngForm">
     <ion-item>
@@ -36,6 +36,7 @@
     <div *ngIf="logged">
       <ion-button class="ion-margin" expand="block" size="large" [disabled]="form.invalid" type="submit">Update</ion-button>
     </div>
-    <ion-button class="ion-margin" expand="block" size="large" type="reset" routerLink="/login">Cancel</ion-button>
+    <ion-button *ngIf="!logged" class="ion-margin" expand="block" size="large" type="reset" routerLink="/login">Cancel</ion-button>
+    <ion-button *ngIf="logged" class="ion-margin" expand="block" size="large" type="reset" routerLink="/">Cancel</ion-button>
   </form>
 </ion-content>
