@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { User } from 'src/app/classes/user';
 import { AlertService } from 'src/app/services/alert.service';
 import { ImageService } from 'src/app/services/image.service';
@@ -15,6 +16,8 @@ export class ProfilePage implements OnInit {
   public user: User = new User();
   public id: string = null;
   private alertLoading: string;
+  private subscription1: Subscription;
+  private subscription2: Subscription;
 
   constructor(private activatedRoute: ActivatedRoute, private userService: UserService, private router: Router, private alertService: AlertService, private imageService: ImageService) { }
 
@@ -29,6 +32,10 @@ export class ProfilePage implements OnInit {
     this.user = new User();
     this.id = null;
     this.title = "Loading profile";
+    if (this.subscription1 && !this.subscription1.closed)
+      this.subscription1.unsubscribe();
+    if (this.subscription2 && !this.subscription2.closed)
+      this.subscription2.unsubscribe();
   }
 
   async getUser() {
@@ -36,7 +43,9 @@ export class ProfilePage implements OnInit {
     this.id = this.activatedRoute.snapshot.paramMap.get("id");
     if (this.id)
       this.getUserProfile(this.id);
-    await this.userService.auth.user.subscribe(async ans => {
+    if (this.subscription1 && !this.subscription1.closed)
+      this.subscription1.unsubscribe();
+    this.subscription1 = this.userService.auth.user.subscribe(async ans => {
       if (ans)
         await this.verifyLoggedUser(ans.uid);
       else if (!this.id && !ans)
@@ -46,7 +55,9 @@ export class ProfilePage implements OnInit {
   }
 
   getUserProfile(id: string) {
-    this.userService.get(id).subscribe(ans => {
+    if (this.subscription2 && !this.subscription2.closed)
+      this.subscription2.unsubscribe();
+    this.subscription2 = this.userService.get(id).subscribe(ans => {
       if (!ans) {
         this.router.navigate(["/"]);
         return;

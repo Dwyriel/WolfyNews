@@ -42,9 +42,10 @@ export class AppComponent implements OnInit { //this class did not implement OnI
 
   async logout() {
     await this.alertService.presentLoading().then(ans => { this.loadingAlert = ans });
-    await this.userService.auth.signOut().then(() => {
-      this.alertService.dismissLoading(this.loadingAlert);
+    await this.userService.auth.signOut().then(async () => {
+      await this.alertService.dismissLoading(this.loadingAlert);
       this.user = null;
+      this.router.navigate(["/login"]);
     });
   }
 }

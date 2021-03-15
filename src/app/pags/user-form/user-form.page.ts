@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Form, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AngularDelegate } from '@ionic/angular';
+import { Subscription } from 'rxjs';
 import { User, UserType } from 'src/app/classes/user';
 import { AlertService } from 'src/app/services/alert.service';
 import { EmailValidationService } from 'src/app/services/email-validation.service';
@@ -18,6 +19,8 @@ export class UserFormPage implements OnInit {
   public title: string = "Account";
   public minlength: number = 6;
   private loadingAlert: string;
+  private subscription1: Subscription;
+  private subscription2: Subscription;
 
   public confirm = "";//form would not work properly without the ngModel pointing to some var
 
@@ -34,11 +37,17 @@ export class UserFormPage implements OnInit {
     this.user = new User();
     this.logged = false;
     this.confirm = null;
+    if (this.subscription1 && !this.subscription1.closed)
+      this.subscription1.unsubscribe();
+    if (this.subscription2 && !this.subscription2.closed)
+      this.subscription2.unsubscribe();
   }
 
   async checkIfLogged() {
     await this.alertService.presentLoading().then(ans => { this.loadingAlert = ans; });
-    await this.userService.auth.user.subscribe(async ans => {//will always return an ans, even if not logged in, but ans will be null
+    if (this.subscription1 && !this.subscription1.closed)
+      this.subscription1.unsubscribe();
+    this.subscription1 = this.userService.auth.user.subscribe(async ans => {//will always return an ans, even if not logged in, but ans will be null
       if (!ans) {
         this.logged = false;
         this.user = new User();
@@ -48,7 +57,9 @@ export class UserFormPage implements OnInit {
         await this.alertService.dismissLoading(this.loadingAlert)
         return;
       }
-      this.userService.get(ans.uid).subscribe(data => { this.user = data; this.user.id = ans.uid;});
+      if (this.subscription2 && !this.subscription2.closed)
+        this.subscription2.unsubscribe();
+      this.subscription2 = this.userService.get(ans.uid).subscribe(data => { this.user = data; this.user.id = ans.uid;});
       this.logged = true;
       await this.alertService.dismissLoading(this.loadingAlert)
     });

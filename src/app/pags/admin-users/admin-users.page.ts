@@ -14,7 +14,9 @@ export class AdminUsersPage implements OnInit {
   public users: User[] = [];
   private loadingAlert: string;
   private loadingAlert2: string;
-  private subscription: Subscription;
+  private subscription1: Subscription;
+  private subscription2: Subscription;
+  private subscription3: Subscription;
   private loggedUser: User;
   constructor(private userService: UserService, private alertService: AlertService, private router: Router) { }
 
@@ -28,15 +30,25 @@ export class AdminUsersPage implements OnInit {
 
   ionViewWillLeave() {
     this.users = [];
+    if (this.subscription1 && !this.subscription1.closed)
+      this.subscription1.unsubscribe();
+    if (this.subscription2 && !this.subscription2.closed)
+      this.subscription2.unsubscribe();
+    if (this.subscription3 && !this.subscription3.closed)
+      this.subscription3.unsubscribe();
   }
 
   async verifyUser() {
-    await this.userService.auth.user.subscribe(ans => {//will always return an ans, even if not logged in, but ans will be null
+    if (this.subscription2 && !this.subscription2.closed)
+      this.subscription2.unsubscribe();
+    this.subscription2 = this.userService.auth.user.subscribe(ans => {//will always return an ans, even if not logged in, but ans will be null
       if (!ans) {
         this.router.navigate(["/"]);
         return;
       }
-      this.userService.get(ans.uid).subscribe(
+      if (this.subscription3 && !this.subscription3.closed)
+        this.subscription3.unsubscribe();
+      this.subscription3 = this.userService.get(ans.uid).subscribe(
         ans => {
           this.loggedUser = ans;
           if (this.loggedUser.userType != UserType.Admin)
@@ -46,11 +58,10 @@ export class AdminUsersPage implements OnInit {
   }
 
   async load(event?) {
-    if (this.subscription && !this.subscription.closed)
-      this.subscription.unsubscribe();
+    if (this.subscription1 && !this.subscription1.closed)
+      this.subscription1.unsubscribe();
     await this.alertService.presentLoading().then(ans => { this.loadingAlert = ans });
-    this.subscription = await this.userService.getAll().subscribe(async ans => {
-      console.log(ans)
+    this.subscription1 = this.userService.getAll().subscribe(async ans => {
       this.users = ans;
       if (event)
         event.target.complete();
