@@ -8,9 +8,10 @@ import { ComponentModule } from './components/component.module';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { ResumePipe } from './pipes/resume.pipe';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, ResumePipe],
   entryComponents: [],
   imports: [
     BrowserModule,

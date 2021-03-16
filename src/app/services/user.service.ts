@@ -57,12 +57,4 @@ export class UserService {
   delete(id: string) {
     return this.fireDatabase.collection(this.collection).doc(id).delete();
   }
-
-  add(user: User) { //todo delete later
-    return this.fireDatabase.collection(this.collection).add({
-      name: user.name,
-      email: user.email,
-      password: user.password
-    });
-  }
 }

@@ -66,7 +66,7 @@ export class AdminUsersPage implements OnInit {
       if (event)
         event.target.complete();
       await this.alertService.dismissLoading(this.loadingAlert);//will give a lot of errors but will still work properly
-    });
+    });//on a note: If i want to remove all the error occurring in this page, then do something about the dismissLoading inside the subscribe above
   }
 
   async changeUser(id, name: string) {

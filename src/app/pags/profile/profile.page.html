@@ -22,4 +22,5 @@
       <ion-text>{{(user.userType==0)?"Admin":(user.userType==1)?"Editor":"User"}}</ion-text>
     </ion-item>
   </ion-list>
+  <ion-button *ngIf="!id || id == user.id" type="button" color="primary" expand="block" routerLink="/account" class="ion-margin">Change Information</ion-button>
 </ion-content>

@@ -50,7 +50,7 @@ export class ProfilePage implements OnInit {
         await this.verifyLoggedUser(ans.uid);
       else if (!this.id && !ans)
         await this.redirectToLogin();
-      await this.alertService.dismissLoading(this.alertLoading)
+      await this.alertService.dismissLoading(this.alertLoading);
     });
   }
 
