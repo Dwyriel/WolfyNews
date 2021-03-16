@@ -1,0 +1,19 @@
+<app-header [title]="title" segment=0></app-header>
+
+<ion-content [fullscreen]="true">
+  <app-header [title]="title" segment=1></app-header>
+
+  <form (ngSubmit)="OnFormSubmit(form)" #form="ngForm">
+    <ion-item>
+      <ion-label position="floating">Title</ion-label>
+      <ion-input type="text" name="article-title" [(ngModel)]=article.title required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Content</ion-label>
+      <ion-textarea type="email" name="article-content" [(ngModel)]=article.content required autoGrow=true></ion-textarea>
+    </ion-item>
+    <ion-button *ngIf="!id" class="ion-margin" expand="block" size="large" [disabled]="form.invalid" type="submit">Send</ion-button>
+    <ion-button *ngIf="id" class="ion-margin" expand="block" size="large" [disabled]="form.invalid" type="submit">Update</ion-button>
+    <ion-button class="ion-margin" expand="block" size="large" type="reset" routerLink="/">Cancel</ion-button>
+  </form>
+</ion-content>

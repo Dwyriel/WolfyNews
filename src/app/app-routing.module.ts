@@ -28,6 +28,14 @@ const routes: Routes = [
     loadChildren: () => import('./pags/profile/profile.module').then( m => m.ProfilePageModule)
   },
   {
+    path: 'article-form',
+    loadChildren: () => import('./pags/article-form/article-form.module').then( m => m.ArticleFormPageModule)
+  },
+  {
+    path: 'article-form/:id',
+    loadChildren: () => import('./pags/article-form/article-form.module').then( m => m.ArticleFormPageModule)
+  },
+  {
     path: 'admin_users',
     loadChildren: () => import('./pags/admin-users/admin-users.module').then( m => m.AdminUsersPageModule)
   },

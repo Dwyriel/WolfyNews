@@ -18,6 +18,9 @@ export class AppComponent implements OnInit { //this class did not implement OnI
   public adminAppPages = [
     { title: 'Users | Admin', url: '/admin_users', icon: 'people' },
   ];
+  public editorAppPages = [
+    { title: 'New article', url: '/article-form', icon: 'document' },
+  ]
   public user: User = null;
   private loadingAlert: string;
   public firebaseAns: boolean; //it's bad to do what I did with the auth answer, so changing this to boolean
