@@ -93,7 +93,7 @@ export class ProfilePage implements OnInit {
         });
         await this.alertService.dismissLoading(this.alertLoading);
       } else {
-        this.alertService.presentAlert("Error", "Image couldn't be processed");
+        console.log("No image selected");
         await this.alertService.dismissLoading(this.alertLoading);
       }
     });

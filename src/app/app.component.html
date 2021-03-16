@@ -5,14 +5,14 @@
       <ion-content>
 
         <ion-list id="inbox-list">
-          <ion-menu-toggle>
+          <ion-menu-toggle auto-hide="false">
             <ion-item *ngIf="firebaseAns" routerLink="/profile">
               <img id="userimage" *ngIf="user && !user.photo" src="../assets/perfil.png">
               <img id="userimage" *ngIf="user && user.photo" [src]="user.photo">
               <ion-list-header *ngIf="user">{{ user.name }}</ion-list-header>
             </ion-item>
           </ion-menu-toggle>
-          <ion-menu-toggle>
+          <ion-menu-toggle auto-hide="false">
             <ion-item *ngIf="!firebaseAns" routerLink="/login">
               <ion-icon ios="log-in-outline" md="log-in-sharp"></ion-icon>
               <ion-list-header>Log In</ion-list-header>

@@ -53,7 +53,6 @@ export class AppComponent implements OnInit { //this class did not implement OnI
       this.user = null;
       if (this.subscription1 && !this.subscription1.closed)
         this.subscription1.unsubscribe();
-      //this.router.navigate(["/login"]);//maybe i can remove this again?
     });
   }
 }
