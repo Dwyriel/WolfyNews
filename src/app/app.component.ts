@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { User } from './classes/user';
 import { AlertService } from './services/alert.service';
 import { UserService } from './services/user.service';
@@ -19,7 +20,9 @@ export class AppComponent implements OnInit { //this class did not implement OnI
   ];
   public user: User = null;
   private loadingAlert: string;
-  public firebaseAns;
+  public firebaseAns: boolean; //it's bad to do what I did with the auth answer, so changing this to boolean
+  private subscription1: Subscription;
+
   constructor(private userService: UserService, private alertService: AlertService, private router: Router) { }
 
   async ngOnInit() {
@@ -27,16 +30,19 @@ export class AppComponent implements OnInit { //this class did not implement OnI
   }
 
   async verifyUser() {
-    await this.userService.auth.user.subscribe(ans => {
-      this.firebaseAns = ans;//without this it'd STILL show the previously logged user even after loging out and setting user to be null with a delay
-      if (ans) {
-        this.userService.get(ans.uid).subscribe(ans => this.user = ans);
-        return;
-      }
-      this.user = null;
-    },
+    this.userService.auth.user.subscribe( //should probably leave this subscrition active all the time
+      ans => {
+        if (ans) {
+        this.firebaseAns = true;
+        this.subscription1 = this.userService.get(ans.uid).subscribe(ans => this.user = ans);
+          return;
+        }
+        this.firebaseAns = false;
+        this.user = null;
+      },
       err => {
         this.user = null;
+        console.log(err);
       });
   }
 
@@ -45,7 +51,9 @@ export class AppComponent implements OnInit { //this class did not implement OnI
     await this.userService.auth.signOut().then(async () => {
       await this.alertService.dismissLoading(this.loadingAlert);
       this.user = null;
-      this.router.navigate(["/login"]);
+      if (this.subscription1 && !this.subscription1.closed)
+        this.subscription1.unsubscribe();
+      //this.router.navigate(["/login"]);//maybe i can remove this again?
     });
   }
 }
