@@ -7,4 +7,5 @@ export class Article {
     content: string;
     authorId: string;
     author: User;
+    date: Date
 }

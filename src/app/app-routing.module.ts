@@ -12,6 +12,14 @@ const routes: Routes = [
     loadChildren: () => import('./pags/home/home.module').then( m => m.HomePageModule)
   },
   {
+    path: 'article/:id',
+    loadChildren: () => import('./pags/article/article.module').then( m => m.ArticlePageModule)
+  },
+  {
+    path: 'about',
+    loadChildren: () => import('./pags/about/about.module').then( m => m.AboutPageModule)
+  },
+  {
     path: 'account',
     loadChildren: () => import('./pags/user-form/user-form.module').then( m => m.UserFormPageModule)
   },

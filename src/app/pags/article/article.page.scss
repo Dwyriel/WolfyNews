@@ -1,0 +1,32 @@
+#article-div{
+    padding-top: 2rem;
+    size: 85%;
+    margin: 0 7.5% 0 7.5%;
+}
+
+#article-div #article-title{
+    font-size: 1.8rem;
+}
+
+#article-div #article-date{
+    font-size: .75rem;
+}
+
+#article-div #article-content{
+    white-space: pre-wrap;
+    font-size: 1.05rem;
+}
+#article-div #article-author{
+    border-color: transparent;
+	background-color: transparent;
+	color: white;
+}
+
+#authorimage {
+    border-radius: 50%;
+    height: 2.5rem;
+    width: 2.5rem;
+    margin-right: 10px;
+}
+
+ 

@@ -97,6 +97,7 @@ export class ArticleFormPage implements OnInit {
           await this.failedSubmit("Error occurred", "Article was not updated.", err);
         });
       } else {
+        this.article.date = new Date();
         this.article.authorId = this.user.id;
         this.article.active = true;
         this.articleService.add(this.article).then(async ans => {

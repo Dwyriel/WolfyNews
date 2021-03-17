@@ -13,7 +13,7 @@ export class AppComponent implements OnInit { //this class did not implement OnI
   public appPages = [
     { title: 'Home', url: '/home', icon: 'home' },
     { title: 'Articles', url: '1', icon: 'newspaper' },
-    { title: 'About', url: '2', icon: 'help-circle' },
+    { title: 'About', url: 'about', icon: 'help-circle' },
   ];
   public adminAppPages = [
     { title: 'Users | Admin', url: '/admin_users', icon: 'people' },

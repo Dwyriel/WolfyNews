@@ -68,7 +68,7 @@ export class EditArticlesPage implements OnInit {
     this.subscription3 = this.articleService.getAll().subscribe(async ans => {
       this.articles = ans;
       if (event)
-        event.target.complete();
+        await event.target.complete();
       await this.alertService.dismissLoading(this.loadingAlert);
     });
   }

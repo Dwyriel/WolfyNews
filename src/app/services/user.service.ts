@@ -28,7 +28,7 @@ export class UserService {
 
   getAll() {
     return this.fireDatabase.collection<User>(this.collection).snapshotChanges().pipe(map(
-      dados => dados.map(d => ({ id: d.payload.doc.id, ...d.payload.doc.data() }))
+      ans => ans.map(d => ({ id: d.payload.doc.id, ...d.payload.doc.data() }))
     ));
   }
 

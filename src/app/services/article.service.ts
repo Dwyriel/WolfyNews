@@ -16,13 +16,14 @@ export class ArticleService {
       active: article.active,
       title: article.title,
       content: article.content,
-      authorId: article.authorId
+      authorId: article.authorId,
+      date: new Date().toISOString(),
     });
   }
 
   getAll() {
     return this.fireDatabase.collection<Article>(this.collection).snapshotChanges().pipe(map(
-      dados => dados.map(d => ({ id: d.payload.doc.id, ...d.payload.doc.data() }))
+      ans => ans.map(d => ({ id: d.payload.doc.id, ...d.payload.doc.data(), date: new Date(d.payload.doc.data().date) }))
     ));
   }
 

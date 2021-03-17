@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Article } from 'src/app/classes/article';
+import { ArticleService } from 'src/app/services/article.service';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +9,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomePage implements OnInit {
   public title: string = "Home";
-  constructor() { }
+
+  constructor(private articleService: ArticleService) { }
 
   ngOnInit() {
   }
-
 }

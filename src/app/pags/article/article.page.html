@@ -1,0 +1,26 @@
+<app-header [title]="title" segment=0></app-header>
+
+<ion-content [fullscreen]="true">
+  <app-header [title]="title" segment=1></app-header>
+
+  <div id="container">
+    <div id="article-div">
+      <ion-text class="ion-text-start" id="article-title">{{article.title}}</ion-text>
+      <div class="ion-text-end ion-padding">
+        <ion-note id="article-date" *ngIf="article && article.date">Published: {{article.date.toLocaleString()}}
+        </ion-note>
+      </div>
+      <div class="ion-margin-vertical">
+        <ion-text id="article-content">{{article.content}} </ion-text>
+      </div>
+      <ion-row class="ion-padding ion-align-items-center ion-justify-content-end" id="article-author"
+        *ngIf="article && article.author">
+        <img id="authorimage" [src]="article.author.photo" routerLink="/profile/{{article.authorId}}">
+        <ion-label class="" routerLink="/profile/{{article.authorId}}">
+          <h3>Author: </h3>
+          <h2>{{article.author.name}}</h2>
+        </ion-label>
+      </ion-row>
+    </div>
+  </div>
+</ion-content>
