@@ -52,8 +52,8 @@ export class ArticleFormPage implements OnInit {
       this.subscription1.unsubscribe();
     this.subscription1 = this.userService.auth.user.subscribe(async ans => {
       if (!ans) {
-        await this.alertService.dismissLoading(this.loadingAlert);
         this.router.navigate(["/"]);
+        await this.alertService.dismissLoading(this.loadingAlert);
         return;
       }
       if (this.subscription2 && !this.subscription2.closed)
@@ -62,7 +62,7 @@ export class ArticleFormPage implements OnInit {
         data => {
           this.user = data;
           this.user.id = ans.uid;
-          if (this.user.userType != UserType.Admin && this.user.userType != UserType.Editor)
+          if ((this.user.userType != UserType.Admin && this.user.userType != UserType.Editor) || !this.user)
             this.router.navigate(["/"]);
         });
     });
@@ -91,7 +91,6 @@ export class ArticleFormPage implements OnInit {
         if (this.subscription3 && !this.subscription3.closed)
           this.subscription3.unsubscribe();
         this.articleService.update(this.article).then(async () => {
-          console.log(this.article)
           form.reset;
           await this.successfulSubmit("Job's done!", "Article was updated.", "article/" + this.article.id);
         }, async err => {

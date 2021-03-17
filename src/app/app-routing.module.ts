@@ -36,6 +36,10 @@ const routes: Routes = [
     loadChildren: () => import('./pags/article-form/article-form.module').then( m => m.ArticleFormPageModule)
   },
   {
+    path: 'edit_articles',
+    loadChildren: () => import('./pags/edit-articles/edit-articles.module').then( m => m.EditArticlesPageModule)
+  },
+  {
     path: 'admin_users',
     loadChildren: () => import('./pags/admin-users/admin-users.module').then( m => m.AdminUsersPageModule)
   },

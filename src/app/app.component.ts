@@ -20,6 +20,7 @@ export class AppComponent implements OnInit { //this class did not implement OnI
   ];
   public editorAppPages = [
     { title: 'New article', url: '/article-form', icon: 'document' },
+    { title: 'Articles', url: '/edit_articles', icon: 'clipboard' },
   ]
   public user: User = null;
   private loadingAlert: string;

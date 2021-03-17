@@ -30,6 +30,7 @@ export class AdminUsersPage implements OnInit {
 
   ionViewWillLeave() {
     this.users = [];
+    this.loggedUser = null;
     if (this.subscription1 && !this.subscription1.closed)
       this.subscription1.unsubscribe();
     if (this.subscription2 && !this.subscription2.closed)
