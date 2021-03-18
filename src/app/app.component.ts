@@ -12,8 +12,8 @@ import { UserService } from './services/user.service';
 export class AppComponent implements OnInit { //this class did not implement OnInit b4, if there're any error this may be the root of the problem even if it's only an interface
   public appPages = [
     { title: 'Home', url: '/home', icon: 'home' },
-    { title: 'Articles', url: '1', icon: 'newspaper' },
-    { title: 'About', url: 'about', icon: 'help-circle' },
+    { title: 'Articles', url: '/articles', icon: 'newspaper' },
+    { title: 'About', url: '/about', icon: 'help-circle' },
   ];
   public adminAppPages = [
     { title: 'Users | Admin', url: '/admin_users', icon: 'people' },

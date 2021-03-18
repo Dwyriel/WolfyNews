@@ -100,6 +100,11 @@ export class EditArticlesPage implements OnInit {
         await this.alertService.dismissLoading(this.loadingAlert2);
       }
     });
-
+  }
+  
+  get sortByDate() {
+    return this.articles.sort((a, b) => {
+      return <any>b.date - <any>a.date;
+    });
   }
 }

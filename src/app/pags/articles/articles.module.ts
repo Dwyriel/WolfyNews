@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { HomePageRoutingModule } from './home-routing.module';
+import { ArticlesPageRoutingModule } from './articles-routing.module';
 
-import { HomePage } from './home.page';
+import { ArticlesPage } from './articles.page';
 import { ComponentModule } from 'src/app/components/component.module';
 import { ResumePipe } from 'src/app/pipes/resume.pipe';
 
@@ -15,9 +15,9 @@ import { ResumePipe } from 'src/app/pipes/resume.pipe';
     CommonModule,
     FormsModule,
     IonicModule,
-    HomePageRoutingModule,
-    ComponentModule,
+    ArticlesPageRoutingModule,
+    ComponentModule
   ],
-  declarations: [HomePage, ResumePipe]
+  declarations: [ArticlesPage, ResumePipe]
 })
-export class HomePageModule { }
+export class ArticlesPageModule {}

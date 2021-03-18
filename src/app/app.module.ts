@@ -11,7 +11,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { ResumePipe } from './pipes/resume.pipe';
 
 @NgModule({
-  declarations: [AppComponent, ResumePipe],
+  declarations: [AppComponent],
   entryComponents: [],
   imports: [
     BrowserModule,

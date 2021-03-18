@@ -1,0 +1,20 @@
+<app-header title="Articles" segment=0></app-header>
+
+<ion-content [fullscreen]="true">
+  <app-header title="Articles" segment=1></app-header>
+
+  <div id="container">
+    <div id="articles" *ngFor="let article of sortByDate | slice:0:numOfTimes">
+      <ion-card *ngIf="article.active" routerLink="/article/{{article.id}}">
+        <ion-card-header>
+          <ion-card-title>{{article.title}}</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+          {{article.content | resume:180}}
+        </ion-card-content>
+      </ion-card>
+    </div>
+    <ion-button *ngIf="articles.length > numOfTimes" color="primary" expand="block" class="ion-margin" (click)="loadMore()">Check more Articles</ion-button>
+  </div>
+</ion-content>

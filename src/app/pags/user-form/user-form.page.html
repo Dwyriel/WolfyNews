@@ -10,28 +10,26 @@
     </ion-item>
     <div *ngIf="!logged">
       <ion-item>
-      <ion-label position="floating">Email <ion-text color="danger" *ngIf="em.dirty && !emailValidation.validateEmail(em.value)">
+      <ion-label position="floating">Email <ion-text color="danger" *ngIf="email.dirty && !emailValidation.validateEmail(email.value)">
           <b>Email invalid</b> </ion-text>
       </ion-label>
-      <ion-input type="email" name="user-email" [(ngModel)]=user.email #em="ngModel" required></ion-input>
+      <ion-input type="email" name="user-email" [(ngModel)]=user.email #email="ngModel" required></ion-input>
     </ion-item>
       <ion-item>
-        <ion-label position="floating">Password <ion-text color="danger" *ngIf="ps.invalid && ps.dirty"><b>Password
-              invalid</b> </ion-text>
+        <ion-label position="floating">Password <ion-text color="danger" *ngIf="password.invalid && password.dirty"><b>Password invalid</b> </ion-text>
         </ion-label>
-        <ion-input type="password" name="user-ps" [(ngModel)]=user.password #ps="ngModel" minlength="{{minlength}}"
+        <ion-input type="password" name="user-password" [(ngModel)]=user.password #password="ngModel" minlength="{{minlength}}"
           required></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="floating">Confirm Password <ion-text color="danger"
-            *ngIf="cf.value != ps.value && cf.dirty"><b>Passwords don't match!</b> </ion-text>
+            *ngIf="confirmation.value != password.value && confirmation.dirty"><b>Passwords don't match!</b> </ion-text>
         </ion-label>
-        <ion-input type="password" name="confirm" [(ngModel)]=confirm #cf="ngModel" minlength="{{minlength}}" required>
+        <ion-input type="password" name="confirm" [(ngModel)]=confirm #confirmation="ngModel" minlength="{{minlength}}" required>
         </ion-input>
       </ion-item>
       <ion-button class="ion-margin" expand="block" size="large"
-        [disabled]="form.invalid || (cf.value != ps.value) || !emailValidation.validateEmail(em.value)" type="submit">Send <!--|| !validator.isValEmail(em.value))-->
-      </ion-button>
+        [disabled]="form.invalid || (confirmation.value != password.value) || !emailValidation.validateEmail(email.value)" type="submit">Send</ion-button>
     </div>
     <div *ngIf="logged">
       <ion-button class="ion-margin" expand="block" size="large" [disabled]="form.invalid" type="submit">Update</ion-button>

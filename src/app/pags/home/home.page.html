@@ -4,7 +4,31 @@
   <app-header [title]="title" segment=1></app-header>
 
   <div id="container">
-    <strong class="capitalize">This is the {{ title }} page</strong>
-    <p>Welcome to the {{title}} page, content will come later</p>
+    <ion-item id="logo">
+      <ion-row class="ion-align-items-center ion-justify-content-center">
+        <img src="../../../assets/logoWolfyNews.png">
+        <ion-text>WolfyNews</ion-text>
+      </ion-row>
+    </ion-item>
+
+    <ion-row class="ion-padding ion-align-items-center ion-justify-content-end" id="loggedAs" *ngIf="user">
+      <ion-label id="userLabel" routerLink="/profile/{{user.id}}">
+        <h3>Logged as: </h3>
+        <h2 id="userName">{{user.name}}</h2>
+      </ion-label>
+      <img [src]="user.photo" routerLink="/profile/{{user.id}}">
+    </ion-row>
+    <div id="articles" *ngFor="let article of articles">
+      <ion-card *ngIf="article.active" routerLink="/article/{{article.id}}">
+        <ion-card-header>
+          <ion-card-title>{{article.title}}</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+          {{article.content | resume:180}}
+        </ion-card-content>
+      </ion-card>
+    </div>
+    <ion-button *ngIf="articlesLoaded" color="primary" expand="block" class="ion-margin" routerLink="/articles">Check more Articles</ion-button>
   </div>
 </ion-content>

@@ -9,7 +9,7 @@
   </ion-refresher>
 
   <ion-list>
-    <ion-item-sliding *ngFor="let article of articles">
+    <ion-item-sliding *ngFor="let article of sortByDate">
       <ion-item-options side="start">
         <ion-item-option color="danger" (click)="deleteArticle(article.id, article.title)"><span id="optionLeft">Delete</span></ion-item-option>
       </ion-item-options>
