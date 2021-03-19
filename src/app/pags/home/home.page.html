@@ -16,7 +16,7 @@
         <h3>Logged as: </h3>
         <h2 id="userName">{{user.name}}</h2>
       </ion-label>
-      <img [src]="user.photo" routerLink="/profile/{{user.id}}">
+      <img *ngIf="user && user.photo" [src]="user.photo" routerLink="/profile/{{user.id}}">
     </ion-row>
     <div id="articles" *ngFor="let article of articles">
       <ion-card *ngIf="article.active" routerLink="/article/{{article.id}}">
