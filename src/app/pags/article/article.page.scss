@@ -24,4 +24,50 @@
     margin-right: .3rem;
 }
 
- 
+.commentButtons {
+    margin-top: .8rem;
+    margin-bottom: .8rem; // fill="clear"
+}
+
+.commentButtons .leftCommentButton{
+    padding-right: .25rem;
+}
+
+.commentButtons .rightCommentButton{
+    padding-left: .25rem;
+}
+
+.commentariesTitle{
+    font-size: 1.4rem;
+}
+
+.commentaries{
+    margin: 0 7.5% 0 7.5%;
+}
+
+.commentariesDiv{
+    padding-top: 1rem;
+    padding-bottom: .7rem;
+    border-bottom: 1px solid var(--ion-color-step-150, #d7d8da);
+}
+
+.commentsRow{
+    size: 100%;
+}
+
+.commentsRow ion-note{
+    font-size: .65rem;
+}
+
+.commentUserImg{
+    border-radius: 50%;
+    height: 2rem;
+    width: 2rem;
+    margin-right: .3rem;
+    margin-left: -.2rem;
+}
+
+.commentariesText{
+    margin-top: .7rem;
+    white-space: pre-wrap;
+} 

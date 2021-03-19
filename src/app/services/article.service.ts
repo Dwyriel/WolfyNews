@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
 import { Article } from '../classes/article';
+import { CommentService } from './comment.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ArticleService {
   private collection = "Articles";
-  constructor(private fireDatabase: AngularFirestore, public auth: AngularFireAuth) { }
+  constructor(private fireDatabase: AngularFirestore, private commentService: CommentService) { }
 
   add(article: Article) {
     return this.fireDatabase.collection(this.collection).add({
@@ -28,13 +28,13 @@ export class ArticleService {
   }
 
   getAllActive() {
-    return this.fireDatabase.collection<Article>(this.collection, ref=> ref.where('active', '==', true)).snapshotChanges().pipe(map(
+    return this.fireDatabase.collection<Article>(this.collection, ref => ref.where('active', '==', true)).snapshotChanges().pipe(map(
       ans => ans.map(d => ({ id: d.payload.doc.id, ...d.payload.doc.data(), date: new Date(d.payload.doc.data().date) }))
     ));
   }
 
-  getAllWithOptions(options?: {orderBy?: string, limit?: number}) {
-    return this.fireDatabase.collection<Article>(this.collection, ref=> ref.where('active', '==', true).orderBy((options && options.orderBy) ? options.orderBy : 'date', 'desc').limit((options && options.limit) ? options.limit : 3)).snapshotChanges().pipe(map(
+  getAllWithOptions(options?: { orderBy?: string, limit?: number }) {
+    return this.fireDatabase.collection<Article>(this.collection, ref => ref.where('active', '==', true).orderBy((options && options.orderBy) ? options.orderBy : 'date', 'desc').limit((options && options.limit) ? options.limit : 3)).snapshotChanges().pipe(map(
       ans => ans.map(d => ({ id: d.payload.doc.id, ...d.payload.doc.data(), date: new Date(d.payload.doc.data().date) }))
     ));
   }
@@ -56,7 +56,7 @@ export class ArticleService {
     return this.fireDatabase.collection(this.collection).doc(id).update({ active: active });
   }
 
-  delete(id: string) {
-    return this.fireDatabase.collection(this.collection).doc(id).delete();
+  async delete(id: string) {
+    return await this.fireDatabase.collection(this.collection).doc(id).delete().then(async () => await this.commentService.deleteCommentsFrom(id));
   }
 }

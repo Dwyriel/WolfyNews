@@ -15,12 +15,63 @@
       </div>
       <ion-row class="ion-padding-vertical ion-align-items-center ion-justify-content-start" id="article-author"
         *ngIf="article && article.author">
-        <img id="authorimage" [src]="article.author.photo" routerLink="/profile/{{article.authorId}}">
+        <img *ngIf="article.author.photo" id="authorimage" [src]="article.author.photo"
+          routerLink="/profile/{{article.authorId}}">
         <ion-label class="" routerLink="/profile/{{article.authorId}}">
           <h3>Author: </h3>
           <h2>{{article.author.name}}</h2>
         </ion-label>
       </ion-row>
+    </div>
+
+    <div *ngIf="firebaseAns && !(1 > comments.length)" class="ion-margin-vertical">
+      <ion-button *ngIf="!commenting" class="ion-margin-horizontal" expand="block" (click)="chanceCommenting();">Comment Something
+      </ion-button>
+      <ion-item *ngIf="commenting">
+        <ion-label position="floating">Your Comment</ion-label>
+        <ion-textarea name="comment" [(ngModel)]=comment required autoGrow=true></ion-textarea>
+        <ion-row class="ion-justify-content-end commentButtons">
+          <ion-button class="leftCommentButton" expand=full size="small" (click)="submitButton();"
+            [disabled]="1 > comment.length">Submit</ion-button>
+          <ion-button class="rightCommentButton" expand=full size="small" (click)="cancelButton();">Cancel</ion-button>
+        </ion-row>
+      </ion-item>
+    </div>
+
+    <div *ngIf="comments">
+      <ion-text *ngIf="1 > comments.length" class="commentaries commentariesTitle">No comments yet</ion-text>
+      <div *ngIf="comments.length > 0" class="commentaries">
+        <ion-text class="commentariesTitle">Commentaries:</ion-text>
+        <div class="commentariesDiv" *ngFor="let loadedComment of comments">
+          <ion-row *ngIf="loadedComment.user" class="commentsRow ion-justify-content-between">
+            <ion-row class="commentsUserRow ion-align-items-center">
+              <img *ngIf="loadedComment.user && loadedComment.user.photo" class="commentUserImg"
+                [src]="loadedComment.user.photo" routerLink="/profile/{{loadedComment.userId}}">
+              <ion-text routerLink="/profile/{{loadedComment.userId}}">{{loadedComment.user.name}}</ion-text>&nbsp;said:
+            </ion-row>
+            <div *ngIf="loadedComment" class="ion-text-end">
+              <ion-note>{{loadedComment.date.toLocaleString()}}</ion-note>
+            </div>
+          </ion-row>
+          <div class="commentariesText" *ngIf="loadedComment">
+            <ion-text>{{loadedComment.text}}</ion-text>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="firebaseAns" class="ion-margin-vertical">
+      <ion-button *ngIf="!commenting" class="ion-margin-horizontal" expand="block" (click)="chanceCommenting();">Comment Something
+      </ion-button>
+      <ion-item *ngIf="commenting">
+        <ion-label position="floating">Your Comment</ion-label>
+        <ion-textarea name="comment" [(ngModel)]=comment required autoGrow=true></ion-textarea>
+        <ion-row class="ion-justify-content-end commentButtons">
+          <ion-button class="leftCommentButton" expand=full size="small" (click)="submitButton();"
+            [disabled]="1 > comment.length">Submit</ion-button>
+          <ion-button class="rightCommentButton" expand=full size="small" (click)="cancelButton();">Cancel</ion-button>
+        </ion-row>
+      </ion-item>
     </div>
   </div>
 </ion-content>

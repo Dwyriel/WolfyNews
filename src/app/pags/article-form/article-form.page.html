@@ -10,7 +10,7 @@
     </ion-item>
     <ion-item>
       <ion-label position="floating">Content</ion-label>
-      <ion-textarea type="email" name="article-content" [(ngModel)]=article.content required autoGrow=true></ion-textarea>
+      <ion-textarea name="article-content" [(ngModel)]=article.content required autoGrow=true></ion-textarea>
     </ion-item>
     <ion-button *ngIf="!id" class="ion-margin" expand="block" size="large" [disabled]="form.invalid" type="submit">Send</ion-button>
     <ion-button *ngIf="id" class="ion-margin" expand="block" size="large" [disabled]="form.invalid" type="submit">Update</ion-button>
