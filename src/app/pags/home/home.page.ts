@@ -18,6 +18,7 @@ export class HomePage implements OnInit {
   private subscription2: Subscription;
   private subscription3: Subscription;
   public articlesLoaded: boolean = false;
+  public firebaseAns: boolean = false;
 
   constructor(private articleService: ArticleService, private userService: UserService) { }
 
@@ -47,11 +48,13 @@ export class HomePage implements OnInit {
     this.subscription1 = this.userService.auth.user.subscribe(
       ans => {
         if (ans) {
+          this.firebaseAns = true;
           if (this.subscription2 && !this.subscription2.closed)
             this.subscription2.unsubscribe();
           this.subscription2 = this.userService.get(ans.uid).subscribe(ans => this.user = ans);
           return;
         }
+        this.firebaseAns = false;
         this.user = null;
       },
       err => {

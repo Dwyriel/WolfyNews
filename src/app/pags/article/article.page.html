@@ -15,6 +15,8 @@
       </div>
       <ion-row class="ion-padding-vertical ion-align-items-center ion-justify-content-start" id="article-author"
         *ngIf="article && article.author">
+        <img *ngIf="!article.author.photo" id="authorimage" src="../../../assets/perfil.png"
+          routerLink="/profile/{{article.authorId}}">
         <img *ngIf="article.author.photo" id="authorimage" [src]="article.author.photo"
           routerLink="/profile/{{article.authorId}}">
         <ion-label class="" routerLink="/profile/{{article.authorId}}">
@@ -24,8 +26,9 @@
       </ion-row>
     </div>
 
-    <div *ngIf="firebaseAns && !(1 > comments.length)" class="ion-margin-vertical">
-      <ion-button *ngIf="!commenting" class="ion-margin-horizontal" expand="block" (click)="chanceCommenting();">Comment Something
+    <div *ngIf="firebaseAns && !(4 > comments.length)" class="ion-margin-vertical">
+      <ion-button *ngIf="!commenting" class="ion-margin-horizontal" expand="block" (click)="chanceCommenting();">Comment
+        Something
       </ion-button>
       <ion-item *ngIf="commenting">
         <ion-label position="floating">Your Comment</ion-label>
@@ -45,6 +48,8 @@
         <div class="commentariesDiv" *ngFor="let loadedComment of comments">
           <ion-row *ngIf="loadedComment.user" class="commentsRow ion-justify-content-between">
             <ion-row class="commentsUserRow ion-align-items-center">
+              <img *ngIf="loadedComment.user && !loadedComment.user.photo" class="commentUserImg"
+                src="../../../assets/perfil.png" routerLink="/profile/{{loadedComment.userId}}">
               <img *ngIf="loadedComment.user && loadedComment.user.photo" class="commentUserImg"
                 [src]="loadedComment.user.photo" routerLink="/profile/{{loadedComment.userId}}">
               <ion-text routerLink="/profile/{{loadedComment.userId}}">{{loadedComment.user.name}}</ion-text>&nbsp;said:
@@ -61,7 +66,8 @@
     </div>
 
     <div *ngIf="firebaseAns" class="ion-margin-vertical">
-      <ion-button *ngIf="!commenting" class="ion-margin-horizontal" expand="block" (click)="chanceCommenting();">Comment Something
+      <ion-button *ngIf="!commenting" class="ion-margin-horizontal" expand="block" (click)="chanceCommenting();">Comment
+        Something
       </ion-button>
       <ion-item *ngIf="commenting">
         <ion-label position="floating">Your Comment</ion-label>

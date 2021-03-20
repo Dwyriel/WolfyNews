@@ -11,12 +11,13 @@
       </ion-row>
     </ion-item>
 
-    <ion-row class="ion-padding ion-align-items-center ion-justify-content-end" id="loggedAs" *ngIf="user">
+    <ion-row class="ion-padding ion-align-items-center ion-justify-content-end" id="loggedAs" *ngIf="firebaseAns && user">
       <ion-label id="userLabel" routerLink="/profile/{{user.id}}">
         <h3>Logged as: </h3>
         <h2 id="userName">{{user.name}}</h2>
       </ion-label>
       <img *ngIf="user && user.photo" [src]="user.photo" routerLink="/profile/{{user.id}}">
+      <img *ngIf="user && !user.photo" src="../../../assets/perfil.png" routerLink="/profile/{{user.id}}">
     </ion-row>
     <div id="articles" *ngFor="let article of articles">
       <ion-card *ngIf="article.active" routerLink="/article/{{article.id}}">
